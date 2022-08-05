@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32630.192
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncHomework", "AsyncHomework\AsyncHomework.csproj", "{735A360F-CFC8-445A-B258-8AD97A1AD406}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{735A360F-CFC8-445A-B258-8AD97A1AD406}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{735A360F-CFC8-445A-B258-8AD97A1AD406}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{735A360F-CFC8-445A-B258-8AD97A1AD406}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{735A360F-CFC8-445A-B258-8AD97A1AD406}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {22E1A554-FFC0-416C-B4AC-943931BEE3F9}
+	EndGlobalSection
+EndGlobal
