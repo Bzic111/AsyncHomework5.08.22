@@ -17,7 +17,7 @@ builder.Services.AddSingleton<IInvoiceHolder, InvoiceHolder>();
 builder.Services.AddSingleton<IContractHolder, ContractHolder>();
 
 var app = builder.Build();
-
+app.UseWelcomePage("/started");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
