@@ -6,10 +6,11 @@ public interface IRepository<T> where T : class
 {
     T? GetById(int id);
     List<T>? GetAll();
-    List<T>? GetFilter(Func<T, bool> predicate);
     bool Insert(T entity);
-    bool Insert(IEnumerable<T> entities);
     bool UpdateOne(T entity);
     bool DeleteById(int id);
     bool DeleteAll();
+
+    //List<T>? GetFilter(Func<T, bool> predicate);
+    //bool Insert(IEnumerable<T> entities);
 }
