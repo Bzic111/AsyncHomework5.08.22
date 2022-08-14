@@ -38,4 +38,6 @@ public class InvoiceHolder : IInvoiceHolder
         else return false;
         return true;
     }
+
+    public int GetCount() => _memory.Count;
 }

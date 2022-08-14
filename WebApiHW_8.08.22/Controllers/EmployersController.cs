@@ -8,37 +8,44 @@ namespace WebApiHW_8._08._22.Controllers;
 [ApiController]
 public class EmployersController : ControllerBase
 {
-    private readonly IEmployerHolder _holder;
-    public EmployersController(IEmployerHolder holder)
+    private readonly IEmployerService _service;
+    public EmployersController(IEmployerService service)
     {
-        _holder = holder;
+        _service = service;
     }
 
     [HttpGet("get")]
     public IActionResult GetContracts()
     {
-        return Ok(_holder.GetAll());
+        var result = _service.GetAll();
+        return result.Status == TaskStatus.RanToCompletion ? Ok(result.Result) : BadRequest(result.Status);
     }
 
     [HttpGet("get/{id}")]
     public IActionResult GetById([FromRoute] int id)
     {
-        return Ok(_holder.GetById(id));
+        var result = _service.GetById(id);
+        return result.Status != TaskStatus.Faulted ? Ok(result.Result) : BadRequest(result.Exception!.Message);
     }
+
     [HttpPost("register")]
     public IActionResult CreateNew([FromBody] Employer employer)
     {
-        return Ok(_holder.Create(employer));
+        var result = _service.Insert(employer);
+        return result.Status != TaskStatus.Faulted ? Ok(result.Result) : BadRequest(result.Exception!.Message);
     }
+
     [HttpPut("update/{id}")]
     public IActionResult UpdateContract([FromRoute] int id, [FromBody] Employer employer)
     {
-        employer.Id = id;
-        return Ok(_holder.Update(employer));
+        var result = _service.UpdateOne(new Employer() { Id = id, Name = employer.Name });
+        return result.Status != TaskStatus.Faulted ? Ok(result.Result) : BadRequest(result.Exception!.Message);
     }
+
     [HttpDelete("delete/{id}")]
     public IActionResult DeleteById([FromRoute] int id)
     {
-        return Ok(_holder.DeleteById(id));
+        var result = _service.DeleteById(id);
+        return result.Status != TaskStatus.Faulted ? Ok(result.Result) : BadRequest(result.Exception!.Message);
     }
 }

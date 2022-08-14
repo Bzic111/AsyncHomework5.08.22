@@ -20,8 +20,9 @@ public class InvoiceRepository : IInvoiceRepository
     public bool Insert(Invoice entity)=> _holder.Create(entity);
     public bool DeleteAll() => _holder.DeleteAll();
     public bool DeleteById(int id) => _holder.DeleteById(id);
-    public List<Invoice>? GetAll() => _holder.GetAll().ToList();
+    public List<Invoice> GetAll() => _holder.GetAll().ToList();
     public Invoice? GetById(int id) => _holder.GetById(id);
     public List<Invoice>? GetFilter(Func<Invoice, bool> predicate) => _holder.GetAll().Where(predicate).ToList();
     public bool UpdateOne(Invoice entity) => _holder.Update(entity);
+    public int GetCount() => _holder.GetCount();
 }

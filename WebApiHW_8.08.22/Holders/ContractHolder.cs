@@ -25,10 +25,7 @@ public class ContractHolder : IContractHolder
 
     public bool DeleteById(int id)
     {
-        var t = GetById(id)!;
-        if (t != null)
-            _memory.Remove(t);
-        else return false;
+        _memory.Remove(GetById(id)!);
         return true;
     }
 
@@ -39,9 +36,9 @@ public class ContractHolder : IContractHolder
     public bool Update(Contract entity)
     {
         var t = _memory.Find(x => x.Id == entity.Id);
-        if (t != null)
-            _memory[_memory.IndexOf(t)] = entity;
-        else return false;
+        _memory[_memory.IndexOf(t!)] = entity;
         return true;
     }
+
+    public int GetCount() => _memory.Count;
 }

@@ -1,23 +1,21 @@
-﻿using WebApiHW_8._08._22.Repository;
-using WebApiHW_8._08._22.Interfaces;
+﻿using WebApiHW_8._08._22.Interfaces;
 using WebApiHW_8._08._22.Repository.Models;
-using WebApiHW_8._08._22.Controllers;
-using Microsoft.AspNetCore.Mvc;
 
 namespace WebApiHW_8._08._22.Services;
-public class ClientService : IClientService
+
+public class ContractService:IContractService
 {
-    private readonly IClientRepository _repository;
-    public ClientService(IClientRepository repository)
+    private readonly IContractRepository _repository;
+
+    public ContractService(IContractRepository repository)
     {
         _repository = repository;
     }
-
-    public Task<List<Client>> GetAll()
+    public Task<List<Contract>> GetAll()
     {
         return Task.Run(() => _repository.GetAll())!;
     }
-    public Task<Client?> GetById(int id)
+    public Task<Contract?> GetById(int id)
     {
         if (_repository.GetCount() > id)
         {
@@ -28,15 +26,15 @@ public class ClientService : IClientService
             throw new ArgumentOutOfRangeException();
         }
     }
-    public Task<List<Client>> GetFilter(Func<Client, bool> predicate)
+    public Task<List<Contract>> GetFilter(Func<Contract, bool> predicate)
     {
         return Task.Run(() => _repository.GetAll().Where(predicate).ToList());
     }
-    public Task<bool> Insert(IEnumerable<Client> entities)
+    public Task<bool> Insert(IEnumerable<Contract> entities)
     {
         return Task.Run(() => Inserting(entities));
-        
-        bool Inserting(IEnumerable<Client> clients)
+
+        bool Inserting(IEnumerable<Contract> clients)
         {
             foreach (var item in clients)
             {
@@ -45,11 +43,11 @@ public class ClientService : IClientService
             return true;
         }
     }
-    public Task<bool> Insert(Client entity)
+    public Task<bool> Insert(Contract entity)
     {
         return Task.Run(() => _repository.Insert(entity));
     }
-    public Task<bool> UpdateOne(Client entity)
+    public Task<bool> UpdateOne(Contract entity)
     {
         var ent = GetById(entity.Id);
         if (ent != null)

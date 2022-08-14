@@ -23,11 +23,11 @@ public class ClientRepository : IClientRepository
 
     public bool DeleteById(int id) => _holder.DeleteById(id);
 
-    public List<Client>? GetAll() => _holder.GetAll().ToList();
+    public List<Client> GetAll() => _holder.GetAll().ToList();
 
     public Client? GetById(int id) => _holder.GetById(id);
 
     public bool UpdateOne(Client entity) => _holder.Update(entity);
-
+    public int GetCount() => _holder.GetCount();
     public List<Client>? GetFilter(Func<Client, bool> predicate) => _holder.GetAll().Where(predicate).ToList();
 }

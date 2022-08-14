@@ -22,10 +22,7 @@ public class ClientHolder : IClientHolder
     }
     public bool DeleteById(int id)
     {
-        var t = GetById(id)!;
-        if (t != null)
-            _memory.Remove(t);
-        else return false;
+        _memory.Remove(GetById(id)!);
         return true;
     }
     public IEnumerable<Client> GetAll() => _memory;
@@ -33,9 +30,8 @@ public class ClientHolder : IClientHolder
     public bool Update(Client entity)
     {
         var t = _memory.Find(x => x.Id == entity.Id);
-        if (t != null)
-            _memory[_memory.IndexOf(t)] = entity;
-        else return false;
+        _memory[_memory.IndexOf(t!)] = entity;
         return true;
     }
+    public int GetCount() => _memory.Count;
 }
