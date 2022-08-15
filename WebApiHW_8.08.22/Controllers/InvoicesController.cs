@@ -8,37 +8,42 @@ namespace WebApiHW_8._08._22.Controllers;
 [ApiController]
 public class InvoicesController : ControllerBase
 {
-    private readonly IInvoiceHolder _holder;
-    public InvoicesController(IInvoiceHolder holder)
+    private readonly IInvoiceService _service;
+    public InvoicesController(IInvoiceService service)
     {
-        _holder = holder;
+        _service = service;
     }
 
     [HttpGet("get")]
     public IActionResult GetContracts()
     {
-        return Ok(_holder.GetAll());
+        var result = _service.GetAll();
+        Task.WaitAll(result);
+        return result.Status == TaskStatus.RanToCompletion ? Ok(result.Result) : BadRequest(result.Status);
     }
 
     [HttpGet("get/{id}")]
     public IActionResult GetById([FromRoute] int id)
     {
-        return Ok(_holder.GetById(id));
+        var result = _service.GetById(id);
+        return result.Status != TaskStatus.Faulted ? Ok(result.Result) : BadRequest(result.Exception!.Message);
     }
     [HttpPost("register")]
-    public IActionResult CreateNew([FromBody] Invoice invoice)
+    public IActionResult CreateNew([FromBody] Invoice employer)
     {
-        return Ok(_holder.Create(invoice));
+        var result = _service.Insert(employer);
+        return result.Status != TaskStatus.Faulted ? Ok(result.Result) : BadRequest(result.Exception!.Message);
     }
     [HttpPut("update/{id}")]
-    public IActionResult UpdateContract([FromRoute] int id, [FromBody] Invoice invoice)
+    public IActionResult UpdateContract([FromRoute] int id, [FromBody] Invoice employer)
     {
-        invoice.Id = id;
-        return Ok(_holder.Update(invoice));
+        var result = _service.UpdateOne(new Invoice() { Id = id });
+        return result.Status != TaskStatus.Faulted ? Ok(result.Result) : BadRequest(result.Exception!.Message);
     }
     [HttpDelete("delete/{id}")]
     public IActionResult DeleteById([FromRoute] int id)
     {
-        return Ok(_holder.DeleteById(id));
+        var result = _service.DeleteById(id);
+        return result.Status != TaskStatus.Faulted ? Ok(result.Result) : BadRequest(result.Exception!.Message);
     }
 }

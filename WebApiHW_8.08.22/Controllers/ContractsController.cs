@@ -20,6 +20,7 @@ public class ContractsController : ControllerBase
     public IActionResult GetContracts()
     {
         var result = _service.GetAll();
+        Task.WaitAll(result);
         return result.Status == TaskStatus.RanToCompletion ? Ok(result.Result) : BadRequest(result.Status);
     }
 

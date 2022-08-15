@@ -24,4 +24,6 @@ public class EmployerRepository:IEmployerRepository
     public Employer? GetById(int id) => _holder.GetById(id);
     public List<Employer>? GetFilter(Func<Employer, bool> predicate) => _holder.GetAll().Where(predicate).ToList();
     public bool UpdateOne(Employer entity) => _holder.Update(entity);
+
+    public int GetCount() => _holder.GetCount();
 }

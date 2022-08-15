@@ -23,4 +23,5 @@ public class ContractRepository:IContractRepository
     public Contract? GetById(int id) => _holder.GetById(id);
     public List<Contract>? GetFilter(Func<Contract, bool> predicate) => _holder.GetAll().Where(predicate).ToList();
     public bool UpdateOne(Contract entity) => _holder.Update(entity);
+    public int GetCount() => _holder.GetCount();
 }
