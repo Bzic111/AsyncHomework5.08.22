@@ -8,7 +8,7 @@ namespace WebApiHW_8._08._22.DBContext
         public DbSet<User> Users { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Host=;Database=MyNewDB;Username=postgres;Password=123456; ");
+            optionsBuilder.UseNpgsql("Host=postgres://postgres:postgrespw@localhost:49153;Database=MyNewDB;Username=postgres;Password=123456; "); //  postgres://postgres:postgrespw@localhost:49153
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
