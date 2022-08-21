@@ -10,9 +10,13 @@ public sealed class CECIDbContext : DbContext
     public DbSet<Contract> Contracts { get; set; } = null!;
     public DbSet<Invoice> Invoices { get; set; } = null!;
 
+    public CECIDbContext()
+    {
+        Database.EnsureCreated();
+    }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql("Host=localhost;Port:49155;Database=CECIDB;Username=postgres;Password=postgrespw;");
+        optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=CECIDB;Username=postgres;Password=123456;");
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
