@@ -1,8 +1,9 @@
 ﻿using WebApiHW_8._08._22.Repository;
-using WebApiHW_8._08._22.Interfaces;
 using WebApiHW_8._08._22.Repository.Models;
 using WebApiHW_8._08._22.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using WebApiHW_8._08._22.Interfaces.Service;
+using WebApiHW_8._08._22.Interfaces.Repository;
 
 namespace WebApiHW_8._08._22.Services;
 public class ClientService : IClientService

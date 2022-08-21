@@ -2,7 +2,7 @@
 
 namespace WebApiHW_8._08._22.Interfaces.Repository;
 
-public interface IInvoiceRepository : IRepository<Invoice>
+public interface IUserRepository : IRepository<User>
 {
 
 }

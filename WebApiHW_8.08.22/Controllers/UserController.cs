@@ -1,15 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using WebApiHW_8._08._22.Repository.Models;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using WebApiHW_8._08._22.Interfaces.Service;
+using WebApiHW_8._08._22.Repository.Models;
 
 namespace WebApiHW_8._08._22.Controllers;
 
-[Route("api/employers")]
+[Route("api/[controller]")]
 [ApiController]
-public class EmployersController : ControllerBase
+public class UserController : ControllerBase
 {
-    private readonly IEmployerService _service;
-    public EmployersController(IEmployerService service)
+    private readonly IUserService _service;
+    public UserController(IUserService service)
     {
         _service = service;
     }
@@ -30,16 +31,16 @@ public class EmployersController : ControllerBase
     }
 
     [HttpPost("register")]
-    public IActionResult CreateNew([FromBody] Employer employer)
+    public IActionResult CreateNew([FromBody] User client)
     {
-        var result = _service.Insert(employer);
+        var result = _service.Insert(client);
         return result.Status != TaskStatus.Faulted ? Ok(result.Result) : BadRequest(result.Exception!.Message);
     }
 
     [HttpPut("update/{id}")]
-    public IActionResult UpdateContract([FromRoute] int id, [FromBody] Employer employer)
+    public IActionResult UpdateContract([FromRoute] int id, [FromBody] User client)
     {
-        var result = _service.UpdateOne(new Employer() { Id = id, Name = employer.Name });
+        var result = _service.UpdateOne(new User() { Id = id, Name = client.Name });
         return result.Status != TaskStatus.Faulted ? Ok(result.Result) : BadRequest(result.Exception!.Message);
     }
 

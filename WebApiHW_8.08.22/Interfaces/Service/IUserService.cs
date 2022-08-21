@@ -2,7 +2,6 @@
 
 namespace WebApiHW_8._08._22.Interfaces.Service;
 
-public interface IEmployerService : IService<Employer>
+public interface IUserService : IService<User>
 {
-
 }

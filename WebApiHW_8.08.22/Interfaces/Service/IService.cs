@@ -1,4 +1,4 @@
-﻿namespace WebApiHW_8._08._22.Interfaces;
+﻿namespace WebApiHW_8._08._22.Interfaces.Service;
 
 public interface IService<T> where T : class
 {

@@ -1,6 +1,6 @@
 ﻿using WebApiHW_8._08._22.Repository.Models;
-using WebApiHW_8._08._22.Interfaces;
 using WebApiHW_8._08._22.DBContext;
+using WebApiHW_8._08._22.Interfaces.Repository;
 
 namespace WebApiHW_8._08._22.Repository;
 

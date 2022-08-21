@@ -1,10 +1,4 @@
-﻿using WebApiHW_8._08._22.Interfaces;
+﻿using WebApiHW_8._08._22.Repository.Models;
 
-
-namespace WebApiHW_8._08._22.Services.Models;
-
-public class Employer : IPerson
-{
-    public int Id { get; set; }
-    public string Name { get; set; }
-}
+namespace WebApiHW_8._08._22.Services.Models; 
+public class Employer : BaseEntity { }

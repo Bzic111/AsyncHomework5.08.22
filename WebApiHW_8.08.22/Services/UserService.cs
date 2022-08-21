@@ -4,19 +4,19 @@ using WebApiHW_8._08._22.Repository.Models;
 
 namespace WebApiHW_8._08._22.Services;
 
-public class ContractService:IContractService
+public class UserService : IUserService
 {
-    private readonly IContractRepository _repository;
-
-    public ContractService(IContractRepository repository)
+    private readonly IUserRepository _repository;
+    public UserService(IUserRepository repository)
     {
         _repository = repository;
     }
-    public Task<List<Contract>> GetAll()
+
+    public Task<List<User>> GetAll()
     {
         return Task.Run(() => _repository.GetAll())!;
     }
-    public Task<Contract?> GetById(int id)
+    public Task<User?> GetById(int id)
     {
         if (_repository.GetCount() > id)
         {
@@ -27,15 +27,15 @@ public class ContractService:IContractService
             throw new ArgumentOutOfRangeException();
         }
     }
-    public Task<List<Contract>> GetFilter(Func<Contract, bool> predicate)
+    public Task<List<User>> GetFilter(Func<User, bool> predicate)
     {
         return Task.Run(() => _repository.GetAll().Where(predicate).ToList());
     }
-    public Task<bool> Insert(IEnumerable<Contract> entities)
+    public Task<bool> Insert(IEnumerable<User> entities)
     {
         return Task.Run(() => Inserting(entities));
 
-        bool Inserting(IEnumerable<Contract> clients)
+        bool Inserting(IEnumerable<User> clients)
         {
             foreach (var item in clients)
             {
@@ -44,11 +44,11 @@ public class ContractService:IContractService
             return true;
         }
     }
-    public Task<bool> Insert(Contract entity)
+    public Task<bool> Insert(User entity)
     {
         return Task.Run(() => _repository.Insert(entity));
     }
-    public Task<bool> UpdateOne(Contract entity)
+    public Task<bool> UpdateOne(User entity)
     {
         var ent = GetById(entity.Id);
         if (ent != null)
