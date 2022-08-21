@@ -1,11 +1,15 @@
+using WebApiHW_8._08._22.DBContext;
 using WebApiHW_8._08._22.Holders;
 using WebApiHW_8._08._22.Interfaces;
 using WebApiHW_8._08._22.Repository;
 using WebApiHW_8._08._22.Services;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddDbContext<UserDbContext>();
+builder.Services.AddDbContext<CECIDbContext>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

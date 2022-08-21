@@ -1,28 +1,65 @@
 ﻿using WebApiHW_8._08._22.Repository.Models;
+using WebApiHW_8._08._22.DBContext;
 using WebApiHW_8._08._22.Interfaces;
-
 
 namespace WebApiHW_8._08._22.Repository;
 
 public class InvoiceRepository : IInvoiceRepository
 {
-    private readonly IInvoiceHolder _holder;
-    public InvoiceRepository(IInvoiceHolder holder)
+    private readonly CECIDbContext _context;
+	public InvoiceRepository(CECIDbContext context)
+	{
+		_context = context;
+	}
+    public bool DeleteAll()
     {
-        _holder = holder;
+        var entityes = _context.Invoices.Where(x => x.IsDeleted == false);
+        foreach (var item in entityes)
+            item.IsDeleted = true;
+        return Commit();
     }
-    public bool Insert(IEnumerable<Invoice> entities)
+
+    public bool DeleteById(int id)
     {
-        foreach (var item in entities)
-            _holder.Create(item);
-        return true;
+        var entity = _context.Invoices.Find(id)!;
+        if (entity is not null)
+        {
+            entity.IsDeleted = true;
+            return Commit();
+        }
+        else return false;
     }
-    public bool Insert(Invoice entity)=> _holder.Create(entity);
-    public bool DeleteAll() => _holder.DeleteAll();
-    public bool DeleteById(int id) => _holder.DeleteById(id);
-    public List<Invoice> GetAll() => _holder.GetAll().ToList();
-    public Invoice? GetById(int id) => _holder.GetById(id);
-    public List<Invoice>? GetFilter(Func<Invoice, bool> predicate) => _holder.GetAll().Where(predicate).ToList();
-    public bool UpdateOne(Invoice entity) => _holder.Update(entity);
-    public int GetCount() => _holder.GetCount();
+
+    private bool Commit()
+    {
+        int count = _context.SaveChanges();
+        return count > 0;
+    }
+
+    public List<Invoice> GetAll()
+    {
+        return _context.Invoices.Where(x => x.IsDeleted == false).ToList();
+    }
+
+    public Invoice? GetById(int id)
+    {
+        return _context.Invoices.Where(u => u.Id == id).FirstOrDefault();
+    }
+
+    public int GetCount()
+    {
+        return _context.Invoices.Count();
+    }
+
+    public bool Insert(Invoice entity)
+    {
+        _context.Add(entity);
+        return Commit();
+    }
+
+    public bool UpdateOne(Invoice entity)
+    {
+        _context.Update(entity);
+        return Commit();
+    }
 }

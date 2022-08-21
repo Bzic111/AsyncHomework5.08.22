@@ -1,6 +1,9 @@
-﻿namespace WebApiHW_8._08._22.Interfaces;
+﻿using System.Xml;
 
-public interface IEntity
+namespace WebApiHW_8._08._22.Interfaces;
+
+public interface IEntity<TUniqueId> where TUniqueId : struct
 {
-    public int Id { get; set; }
+    public TUniqueId Id { get; set; }
+    public bool IsDeleted { get; set; }
 }

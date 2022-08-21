@@ -3,8 +3,7 @@
 
 namespace WebApiHW_8._08._22.Repository.Models;
 
-public class Client : IPerson
+public class Client : BaseEntity
 {
-    public int Id { get; set; }
-    public string Name { get; set; }
+
 }

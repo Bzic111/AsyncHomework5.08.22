@@ -1,20 +1,21 @@
 ﻿using WebApiHW_8._08._22.DBContext;
 using WebApiHW_8._08._22.Interfaces;
 using WebApiHW_8._08._22.Repository.Models;
+using System.Linq;
 
 namespace WebApiHW_8._08._22.Repository;
 
-public class ContractRepository : IContractRepository
+internal sealed class UserRepository : IUserRepository
 {
-    private readonly CECIDbContext _context;
-    public ContractRepository(CECIDbContext context)
+    private readonly UserDbContext _context;
+    public UserRepository(UserDbContext context)
     {
         _context = context;
     }
 
     public bool DeleteAll()
     {
-        var entityes = _context.Contracts.Where(x => x.IsDeleted == false);
+        var entityes = _context.Users.Where(x => x.IsDeleted == false);
         foreach (var item in entityes)
         {
             item.IsDeleted = true;
@@ -24,13 +25,13 @@ public class ContractRepository : IContractRepository
 
     public bool DeleteById(int id)
     {
-        var entity = _context.Contracts.Find(id)!;
+        var entity = _context.Users.Find(id)!;
         if (entity is not null)
         {
             entity.IsDeleted = true;
             return Commit();
         }
-        else return false;
+        else return false;        
     }
 
     private bool Commit()
@@ -39,28 +40,28 @@ public class ContractRepository : IContractRepository
         return count > 0;
     }
 
-    public List<Contract> GetAll()
+    public List<User> GetAll()
     {
-        return _context.Contracts.Where(x => x.IsDeleted == false).ToList();
+        return _context.Users.Where(x => x.IsDeleted == false).ToList();
     }
 
-    public Contract? GetById(int id)
+    public User? GetById(int id)
     {
-        return _context.Contracts.Where(u => u.Id == id).FirstOrDefault();
+        return _context.Users.Where(u=> u.Id == id).FirstOrDefault();
     }
 
     public int GetCount()
     {
-        return _context.Contracts.Count();
+        return _context.Users.Count();
     }
 
-    public bool Insert(Contract entity)
+    public bool Insert(User entity)
     {
         _context.Add(entity);
         return Commit();
     }
 
-    public bool UpdateOne(Contract entity)
+    public bool UpdateOne(User entity)
     {
         _context.Update(entity);
         return Commit();

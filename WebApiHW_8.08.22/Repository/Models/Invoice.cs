@@ -2,7 +2,7 @@
 
 namespace WebApiHW_8._08._22.Repository.Models;
 
-public class Invoice : IDocument
+public class Invoice : BaseEntity
 {
-    public int Id { get; set; }
+    
 }

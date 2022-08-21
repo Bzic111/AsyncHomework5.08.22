@@ -2,7 +2,7 @@
 
 namespace WebApiHW_8._08._22.Repository.Models;
 
-public class Contract : IDocument
+public class Contract : BaseEntity
 {
-    public int Id { get; set; }
+    
 }

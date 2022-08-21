@@ -3,8 +3,7 @@
 
 namespace WebApiHW_8._08._22.Repository.Models;
 
-public class Employer : IPerson
+public class Employer : BaseEntity
 {
-    public int Id { get; set; }
-    public string Name { get; set; }
+
 }

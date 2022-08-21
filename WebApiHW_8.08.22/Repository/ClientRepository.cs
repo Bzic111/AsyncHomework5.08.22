@@ -1,33 +1,60 @@
-﻿using WebApiHW_8._08._22.Interfaces;
+﻿using WebApiHW_8._08._22.DBContext;
+using WebApiHW_8._08._22.Interfaces;
 using WebApiHW_8._08._22.Repository.Models;
 
 namespace WebApiHW_8._08._22.Repository;
 
 public class ClientRepository : IClientRepository
 {
-    private readonly IClientHolder _holder;
-    public ClientRepository(IClientHolder holder)
+    private readonly CECIDbContext _context;
+    public ClientRepository(CECIDbContext context)
     {
-        _holder = holder;
-    }
-    public bool Insert(IEnumerable<Client> entities)
-    {
-        foreach (var item in entities)
-            _holder.Create(item);
-        return true;
+        _context = context;
     }
 
-    public bool Insert(Client entity) => _holder.Create(entity);
+    private bool Commit()
+    {
+        int count = _context.SaveChanges();
+        return count > 0;
+    }
+    public bool Insert(Client entity)
+    {
+        _context.Add(entity);
+        return Commit();
+    }
 
-    public bool DeleteAll() => _holder.DeleteAll();
+    public bool DeleteAll()
+    {
+        var entityes = _context.Clients.Where(x => x.IsDeleted == false);
+        foreach (var item in entityes)
+        {
+            item.IsDeleted = true;
+        }
+        return Commit();
+    }
 
-    public bool DeleteById(int id) => _holder.DeleteById(id);
+    public bool DeleteById(int id)
+    {
+        var entity = _context.Clients.Find(id)!;
+        if (entity is not null)
+        {
+            entity.IsDeleted = true;
+            return Commit();
+        }
+        else return false;
+    }
+    public List<Client> GetAll() => _context.Clients.Where(x => x.IsDeleted == false).ToList();
 
-    public List<Client> GetAll() => _holder.GetAll().ToList();
+    public Client? GetById(int id) => _context.Clients.Where(u => u.Id == id).FirstOrDefault();
 
-    public Client? GetById(int id) => _holder.GetById(id);
+    public int GetCount()
+    {
+        return _context.Clients.Count();
+    }
 
-    public bool UpdateOne(Client entity) => _holder.Update(entity);
-    public int GetCount() => _holder.GetCount();
-    public List<Client>? GetFilter(Func<Client, bool> predicate) => _holder.GetAll().Where(predicate).ToList();
+    public bool UpdateOne(Client entity)
+    {
+        _context.Update(entity);
+        return Commit();
+    }
 }
