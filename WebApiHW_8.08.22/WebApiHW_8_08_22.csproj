@@ -10,12 +10,16 @@
   <ItemGroup>
     <Compile Remove="DAL\**" />
     <Compile Remove="DTO\**" />
+    <Compile Remove="Interfaces\Controller\**" />
     <Content Remove="DAL\**" />
     <Content Remove="DTO\**" />
+    <Content Remove="Interfaces\Controller\**" />
     <EmbeddedResource Remove="DAL\**" />
     <EmbeddedResource Remove="DTO\**" />
+    <EmbeddedResource Remove="Interfaces\Controller\**" />
     <None Remove="DAL\**" />
     <None Remove="DTO\**" />
+    <None Remove="Interfaces\Controller\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,10 +28,6 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.6" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Interfaces\Controller\" />
   </ItemGroup>
 
 </Project>

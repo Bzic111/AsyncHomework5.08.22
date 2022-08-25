@@ -16,7 +16,7 @@ public sealed class CECIDbContext : DbContext
     }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=CECIDB;Username=postgres;Password=123456;");
+        optionsBuilder.UseNpgsql("Host=localhost;Port=49154;Database=CECIDB;Username=postgres;Password=postgrespw;");
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -7,10 +7,13 @@ namespace WebApiHW_8._08._22.DBContext;
 internal sealed class UserDbContext : DbContext
 {
     public DbSet<User> Users { get; set; }
-
+    public UserDbContext()
+    {
+        Database.EnsureCreated();
+    }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=public;Username=postgres;Password=123456; "); //  postgres://postgres:postgrespw@localhost:49153        
+        optionsBuilder.UseNpgsql("Host=localhost;Port=49154;Database=UsersDB;Username=postgres;Password=postgrespw; "); //  postgres://postgres:postgrespw@localhost:49153        
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

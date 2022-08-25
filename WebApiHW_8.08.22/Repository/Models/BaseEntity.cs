@@ -6,5 +6,5 @@ public class BaseEntity : IEntity<int>
 {
     public string Name { get; set; }
     public int Id { get; set; }
-    public bool IsDeleted { get; set; }
+    public bool IsDeleted { get; set; } = false;
 }
