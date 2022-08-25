@@ -2,10 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using WebApiHW_8._08._22.Interfaces.Service;
 using WebApiHW_8._08._22.Repository.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApiHW_8._08._22.Controllers;
 
 [Route("api/[controller]")]
+[Authorize(AuthenticationSchemes = "Bearer")]
 [ApiController]
 public class UserController : ControllerBase
 {
@@ -13,6 +15,14 @@ public class UserController : ControllerBase
     public UserController(IUserService service)
     {
         _service = service;
+    }
+
+    [AllowAnonymous]
+    [HttpPost("auth")]
+    public IActionResult Auth([FromBody] AuthRequest areq)
+    {
+        var str = _service.Authenticate(areq.Login, areq.Password);
+        return Ok(new AuthResponse() { Success = true, Token = str });
     }
 
     [HttpGet("get")]
@@ -50,4 +60,14 @@ public class UserController : ControllerBase
         var result = _service.DeleteById(id);
         return result.Status != TaskStatus.Faulted ? Ok(result.Result) : BadRequest(result.Exception!.Message);
     }
+}
+public class AuthRequest
+{
+    public string Login { get; set; }
+    public string Password { get; set; }
+}
+public class AuthResponse
+{
+    public bool Success { get; set; }
+    public string Token { get; set; }
 }

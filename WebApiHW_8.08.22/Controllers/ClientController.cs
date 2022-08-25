@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebApiHW_8._08._22.Interfaces.Service;
 using WebApiHW_8._08._22.Repository.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApiHW_8._08._22.Controllers;
 
 [Route("api/customers")]
+[Authorize(AuthenticationSchemes = "Bearer")]
 [ApiController]
 public class ClientController : ControllerBase
 {
