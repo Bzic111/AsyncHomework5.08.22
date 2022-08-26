@@ -5,5 +5,5 @@ namespace WebApiHW_8._08._22.Repository.Models;
 [Table("Contract", Schema = "Contracts")]
 public class Contract : BaseEntity
 {
-    
+
 }

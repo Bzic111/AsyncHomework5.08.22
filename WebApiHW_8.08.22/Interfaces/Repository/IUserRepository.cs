@@ -4,5 +4,5 @@ namespace WebApiHW_8._08._22.Interfaces.Repository;
 
 public interface IUserRepository : IRepository<User>
 {
-
+    User Find(string username);
 }

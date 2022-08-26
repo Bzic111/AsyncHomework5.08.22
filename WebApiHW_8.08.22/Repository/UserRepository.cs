@@ -31,7 +31,7 @@ internal sealed class UserRepository : IUserRepository
             entity.IsDeleted = true;
             return Commit();
         }
-        else return false;        
+        else return false;
     }
 
     private bool Commit()
@@ -47,7 +47,7 @@ internal sealed class UserRepository : IUserRepository
 
     public User? GetById(int id)
     {
-        return _context.Users.Where(u=> u.Id == id).FirstOrDefault();
+        return _context.Users.Where(u => u.Id == id).FirstOrDefault();
     }
 
     public int GetCount()
@@ -65,5 +65,10 @@ internal sealed class UserRepository : IUserRepository
     {
         _context.Update(entity);
         return Commit();
+    }
+
+    public User Find(string username)
+    {
+        return _context.Users.FirstOrDefault(u => u.IsDeleted == false & u.Name == username)!;
     }
 }

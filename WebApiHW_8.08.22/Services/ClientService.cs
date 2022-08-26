@@ -36,7 +36,7 @@ public class ClientService : IClientService
     public Task<bool> Insert(IEnumerable<Client> entities)
     {
         return Task.Run(() => Inserting(entities));
-        
+
         bool Inserting(IEnumerable<Client> clients)
         {
             foreach (var item in clients)

@@ -4,7 +4,7 @@ using WebApiHW_8._08._22.Repository.Models;
 
 namespace WebApiHW_8._08._22.Services;
 
-public class ContractService:IContractService
+public class ContractService : IContractService
 {
     private readonly IContractRepository _repository;
 

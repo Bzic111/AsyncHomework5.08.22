@@ -3,9 +3,15 @@ using Microsoft.AspNetCore.Mvc;
 using WebApiHW_8._08._22.Interfaces.Service;
 using WebApiHW_8._08._22.Repository.Models;
 
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using WebApiHW_8._08._22.Services.Models;
+
 namespace WebApiHW_8._08._22.Controllers;
 
 [Route("api/[controller]")]
+[Authorize]
 [ApiController]
 public class UserController : ControllerBase
 {
@@ -13,6 +19,14 @@ public class UserController : ControllerBase
     public UserController(IUserService service)
     {
         _service = service;
+    }
+    
+    [HttpPost("auth")]
+    [AllowAnonymous]
+    public IActionResult Authorize([FromBody] TokenRequest req)
+    {
+        var result = _service.Authenticate(req.Username, req.Password);
+        return Ok(result);
     }
 
     [HttpGet("get")]
