@@ -4,7 +4,7 @@ using WebApiHW_8._08._22.Repository.Models;
 
 namespace WebApiHW_8._08._22.Services;
 
-public class InvoiceService :IInvoiceService
+public class InvoiceService : IInvoiceService
 {
     private readonly IInvoiceRepository _repository;
     public InvoiceService(IInvoiceRepository repository)

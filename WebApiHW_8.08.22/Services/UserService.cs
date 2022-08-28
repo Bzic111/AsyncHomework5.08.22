@@ -4,7 +4,9 @@ using System.Security.Claims;
 using System.Text;
 using WebApiHW_8._08._22.Interfaces.Repository;
 using WebApiHW_8._08._22.Interfaces.Service;
+using WebApiHW_8._08._22.Interfaces.Validation;
 using WebApiHW_8._08._22.Repository.Models;
+using WebApiHW_8._08._22.Services.Validation;
 //using System.IdentityModel.Tokens;
 
 namespace WebApiHW_8._08._22.Services;
@@ -12,10 +14,12 @@ namespace WebApiHW_8._08._22.Services;
 public class UserService : IUserService
 {
     private readonly IUserRepository _repository;
+    private readonly IUserValidationService _validation;
     public const string SecretCode = "THIS IS SOME VERY SECRET STRING!!! Im blue da ba dee da ba di da ba dee da ba di da d ba dee da ba di da ba dee";
-    public UserService(IUserRepository repository)
+    public UserService(IUserRepository repository, IUserValidationService validation)
     {
         _repository = repository;
+        _validation = validation;
     }
 
     public string Authenticate(string username, string password)
@@ -27,15 +31,6 @@ public class UserService : IUserService
                 return GenerateJwtToken(user.Id);
         }
         return string.Empty;
-        //int i = 0;
-        //foreach (KeyValuePair<string, string> pair in GetAll())
-        //{
-        //    i++;
-        //    if (string.CompareOrdinal(pair.Key, user) == 0 && string.CompareOrdinal(pair.Value, password) == 0)
-        //    {
-        //        return GenerateJwtToken(i);
-        //    }
-        //}
     }
     private string GenerateJwtToken(int id)
     {
@@ -44,9 +39,9 @@ public class UserService : IUserService
         byte[] key = Encoding.ASCII.GetBytes(SecretCode);
         SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor
         {
-            Subject = new ClaimsIdentity(new Claim[] 
+            Subject = new ClaimsIdentity(new Claim[]
             {
-                new Claim(ClaimTypes.Name, id.ToString())        
+                new Claim(ClaimTypes.Name, id.ToString())
             }),
             Expires = DateTime.UtcNow.AddMinutes(15),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -116,5 +111,10 @@ public class UserService : IUserService
         {
             throw new ArgumentOutOfRangeException();
         }
+    }
+    public IOperationResult CreateUser(User client)
+    {
+        IReadOnlyList<IOperationFailure> failures = _validation.ValidateEntity(client);
+        return new OperationResult() { Failures = failures, Succeed = failures.Count == 0 };
     }
 }

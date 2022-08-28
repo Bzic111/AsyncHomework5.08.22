@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using WebApiHW_8._08._22.Interfaces.Service;
 using WebApiHW_8._08._22.Repository.Models;
 using Microsoft.AspNetCore.Authorization;
+using WebApiHW_8._08._22.Interfaces.Validation;
+using WebApiHW_8._08._22.Services;
 
 namespace WebApiHW_8._08._22.Controllers;
 
@@ -39,12 +41,14 @@ public class UserController : ControllerBase
         var result = _service.GetById(id);
         return result.Status != TaskStatus.Faulted ? Ok(result.Result) : BadRequest(result.Exception!.Message);
     }
-
+    [AllowAnonymous]
     [HttpPost("register")]
     public IActionResult CreateNew([FromBody] User client)
     {
-        var result = _service.Insert(client);
-        return result.Status != TaskStatus.Faulted ? Ok(result.Result) : BadRequest(result.Exception!.Message);
+        IOperationResult result = _service.CreateUser(client);
+        return result.Succeed ? Ok(result.Succeed) : BadRequest(result.Failures);
+        //var result = _service.Insert(client);
+        //return result.Status != TaskStatus.Faulted ? Ok(result.Result) : BadRequest(result.Exception!.Message);
     }
 
     [HttpPut("update/{id}")]

@@ -13,7 +13,7 @@ internal sealed class UserDbContext : DbContext
     }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql("Host=localhost;Port=49156;Database=UsersDB;Username=postgres;Password=postgrespw; "); //  postgres://postgres:postgrespw@localhost:49153        
+        optionsBuilder.UseNpgsql("Host=localhost;Port=49153;Database=UsersDB;Username=postgres;Password=postgrespw; "); //  postgres://postgres:postgrespw@localhost:49153        
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

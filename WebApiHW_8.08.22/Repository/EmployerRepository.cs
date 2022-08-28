@@ -4,13 +4,13 @@ using WebApiHW_8._08._22.Interfaces.Repository;
 
 namespace WebApiHW_8._08._22.Repository;
 
-public class EmployerRepository: IEmployerRepository
+public class EmployerRepository : IEmployerRepository
 {
     private readonly CECIDbContext _context;
-	public EmployerRepository(CECIDbContext context)
-	{
-		_context = context;
-	}
+    public EmployerRepository(CECIDbContext context)
+    {
+        _context = context;
+    }
     public bool DeleteAll()
     {
         var entityes = _context.Employers.Where(x => x.IsDeleted == false);

@@ -7,10 +7,10 @@ namespace WebApiHW_8._08._22.Repository;
 public class InvoiceRepository : IInvoiceRepository
 {
     private readonly CECIDbContext _context;
-	public InvoiceRepository(CECIDbContext context)
-	{
-		_context = context;
-	}
+    public InvoiceRepository(CECIDbContext context)
+    {
+        _context = context;
+    }
     public bool DeleteAll()
     {
         var entityes = _context.Invoices.Where(x => x.IsDeleted == false);

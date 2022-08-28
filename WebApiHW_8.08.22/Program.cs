@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
+using WebApiHW_8._08._22.Interfaces.Validation;
+using WebApiHW_8._08._22.Services.Validation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +24,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSingleton<UserDbContext>();
 builder.Services.AddSingleton<CECIDbContext>();
 
+builder.Services.AddSingleton<IUserValidationService, UserValidationService>();
 builder.Services.AddSingleton<IClientRepository, ClientRepository>();
 builder.Services.AddSingleton<IEmployerRepository, EmployerRepository>();
 builder.Services.AddSingleton<IInvoiceRepository, InvoiceRepository>();
