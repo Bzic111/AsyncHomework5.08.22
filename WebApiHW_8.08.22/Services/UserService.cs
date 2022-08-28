@@ -115,6 +115,10 @@ public class UserService : IUserService
     public IOperationResult CreateUser(User client)
     {
         IReadOnlyList<IOperationFailure> failures = _validation.ValidateEntity(client);
+        if (failures.Count==0)
+        {
+            Insert(client);
+        }
         return new OperationResult() { Failures = failures, Succeed = failures.Count == 0 };
     }
 }

@@ -26,9 +26,9 @@ public class UserController : ControllerBase
         var str = _service.Authenticate(areq.Login, areq.Password);
         return Ok(new AuthResponse() { Success = true, Token = str });
     }
-
+    [AllowAnonymous]
     [HttpGet("get")]
-    public IActionResult GetContracts()
+    public IActionResult GetAll()
     {
         var result = _service.GetAll();
         Task.WaitAll(result);
